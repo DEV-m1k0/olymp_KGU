@@ -24,8 +24,11 @@ async def write_to_file(answer: str):
     """
     Запись результата в файл
     """
-    with open('OUTPUT.TXT', 'w') as file:
-        file.write(answer)
+    try:
+        with open('OUTPUT.TXT', 'w') as file:
+            file.write(answer)
+    except:
+        raise IOError("Ошибка при записи ответа в файл.")
 
 async def calculate_area(d: int, r: int) -> int:
     """
@@ -45,15 +48,22 @@ async def calculate_area(d: int, r: int) -> int:
         return 2*math.pi*(r**2) - intersection_area
 
 async def main():
-    # Чтение данных из файла
-    with open('INPUT1.TXT', 'r') as file:
-        # Читаем координаты центров кругов
-        x1, y1 = await get_coordinates(file)
-        x2, y2 = await get_coordinates(file)
-        
-        # Читаем радиус и площадь круга первого фонарика
-        r = int(file.readline())
-        s_first_flashlight = float(file.readline())
+    try:
+        open('INPUT1.TXT').close()
+    except:
+        raise FileNotFoundError("""Ошибка при чтении файла. Скорее всего, данного файла не существует или в названии файла допущена ошибка.""")
+    try:
+        # Чтение данных из файла
+        with open('INPUT2.TXT') as file:
+            # Читаем координаты центров кругов
+            x1, y1 = await get_coordinates(file)
+            x2, y2 = await get_coordinates(file)
+            
+            # Читаем радиус и площадь круга первого фонарика
+            r = int(file.readline())
+            s_first_flashlight = float(file.readline())
+    except:
+        raise ValueError("Ошибка при чтении файла. Скорее всего, файл, который вы пытаетесь причесть, не соотвествует требованиям задачи.")
 
     # Вычисляем расстояние между центрами кругов
     d = await calculate_distance_between_circles(x1, y1, x2, y2)
