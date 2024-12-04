@@ -1,0 +1,1 @@
+with open("OUTPUT.TXT", mode="w") as file_out: file_out.write("{0} {1}".format(list(map(lambda x: x([int(i) for i in open("INPUT.TXT").read().strip().split()[1:]]), [min]))[0], list(map(lambda x: x([int(i) for i in open("INPUT.TXT").read().strip().split()[1:]]), [max]))[0]))
