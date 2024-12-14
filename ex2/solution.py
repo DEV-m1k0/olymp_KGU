@@ -20,12 +20,12 @@ async def is_better(s1: int, s2) -> str:
     """
     return "YES" if s2 > s1 else "NO"
 
-async def write_to_file(answer: str):
+async def write_to_file(answer: str, path: str):
     """
     Запись результата в файл
     """
     try:
-        with open('OUTPUT.TXT', 'w') as file:
+        with open(f'{path}/OUTPUT.TXT', 'w') as file:
             file.write(answer)
     except:
         raise IOError("Ошибка при записи ответа в файл.")
@@ -47,14 +47,16 @@ async def calculate_area(d: int, r: int) -> int:
         # Площадь, освещённая двумя кругами
         return 2*math.pi*(r**2) - intersection_area
 
-async def main():
+async def main(file_name: str):
+    import os
+    path = os.path.dirname(__file__)
     try:
-        open('INPUT1.TXT').close()
+        open(f'{path}/{file_name}').close()
     except:
         raise FileNotFoundError("""Ошибка при чтении файла. Скорее всего, данного файла не существует или в названии файла допущена ошибка.""")
     try:
         # Чтение данных из файла
-        with open('INPUT2.TXT') as file:
+        with open(f'{path}/{file_name}') as file:
             # Читаем координаты центров кругов
             x1, y1 = await get_coordinates(file)
             x2, y2 = await get_coordinates(file)
@@ -75,8 +77,9 @@ async def main():
     answer = await is_better(s_first_flashlight, s_second_flashlight)
 
     # Записываем результат в файл
-    await write_to_file(answer)
+    await write_to_file(answer, path=path)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    file_name = "INPUT1.TXT"
+    asyncio.run(main(file_name=file_name))

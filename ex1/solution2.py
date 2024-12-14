@@ -1,15 +1,16 @@
-import asyncio
+import asyncio, os
 
-async def main(file):
+async def main(file: str) -> None:
     """
     Функция для запуска программы
     """
+    path = os.path.dirname(__file__)
     try:
-        open(file).close()
+        open(f"{path}/{file}").close()
     except:
         raise FileNotFoundError("Ошибка при чтении файла. Скорее всего, данного файла не существует или в названии файла допущена ошибка.")
     try:
-        with open(file) as file_in, open("OUTPUT.TXT", mode="w") as file_out:
+        with open(f"{path}/{file}") as file_in, open(f"{path}/OUTPUT.TXT", mode="w") as file_out:
             # Итерируемся по строке и преобразуем строчные элементы списка в численные
             row = list(map(int, file_in.readlines()[1].strip().split()))
             
