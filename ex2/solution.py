@@ -1,5 +1,16 @@
 from io import TextIOWrapper
-import math, asyncio
+import math, asyncio, os
+
+class ProgramSolution:
+    def __init__(self):
+        self.path = os.path.dirname()
+
+
+    async def main(self) -> None:
+        """
+        Метод для запуска программы
+        """
+        pass
 
 async def get_coordinates(file: TextIOWrapper) -> list[int, int]:
     """
@@ -81,5 +92,5 @@ async def main(file_name: str):
 
 
 if __name__ == "__main__":
-    file_name = "INPUT1.TXT"
+    file_name = "INPUT.TXT"
     asyncio.run(main(file_name=file_name))
