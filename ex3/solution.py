@@ -7,7 +7,7 @@ class ProgramSolution:
         self.path = os.path.dirname(__file__)
 
 
-    def distribute_candies(self, n, m, gifts) -> int:
+    def distribute_candies(self, m: int, gifts: list[int]) -> int:
         """
         Метод, который возвращает наименьшее кол-во конфет в подарках
         """
@@ -41,12 +41,12 @@ class ProgramSolution:
             file.write(str(result))
     
 
-    async def main(self, file_name: str) -> None:
+    async def main(self) -> None:
         """
         Запуск программы
         """
         n, m, gifts = self.read()
-        result = self.distribute_candies(n, m, gifts)
+        result = self.distribute_candies(m, gifts)
         self.write(result=result)
 
 
@@ -54,4 +54,4 @@ class ProgramSolution:
 if __name__ == "__main__":
     file_name = "INPUT.TXT"
     solution = ProgramSolution(file_name=file_name)
-    asyncio.run(solution.main(file_name=file_name))
+    asyncio.run(solution.main())
